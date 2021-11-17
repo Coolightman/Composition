@@ -1,4 +1,4 @@
-package com.coolightman.composition.presentation
+package com.coolightman.composition.presentation.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
