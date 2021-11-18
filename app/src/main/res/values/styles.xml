@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <style name="tv_game_option">
+        <item name="android:gravity">center</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:background">@android:color/holo_blue_light</item>
+        <item name="android:layout_margin">6dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="tv_game_number">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:textSize">35sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">100dp</item>
+    </style>
+</resources>

@@ -1,9 +1,21 @@
 <resources>
     <string name="app_name">Composition</string>
     <string name="tv_welcome_title">Состав числа</string>
-    <string name="tv_welcome_rules">Правила игры: перед Вами будет три фигуры - две снизу и одна сверху. В двух из них будут числа.
-    Необходимо, что бы сумма чисел из нижних двух фигур была равна числу в верхней фигуре. Для этого нужно выбрать недостающее число из вариантов ниже.</string>
-    <string name="tv_welcome_example">Пример: в верхнем круге число 7. В одной из нижних фигур знак вопроса, в другой - число 4.
+    <string name="tv_welcome_rules">Правила игры: перед Вами будет три фигуры - две снизу и одна сверху. В двух из них будут числа.\n
+    Необходимо, что бы сумма чисел из нижних двух фигур была равна числу в верхней фигуре. Для этого нужно выбрать недостающее число из вариантов ниже.
+        \n\n
+    Пример: в верхнем круге число 7. В одной из нижних фигур знак вопроса, в другой - число 4.
         Значит на месте вопроса должно быть число 3. Его и выбираем из предложенных вариантов</string>
     <string name="bt_understand">Понятно</string>
+    <string name="tv_level_title">Выберите уровень сложности:</string>
+    <string name="bt_level_easy">Легкий</string>
+    <string name="bt_level_normal">Средний</string>
+    <string name="bt_level_hard">Тяжелый</string>
+    <string name="bt_level_test">Тестовый</string>
+    <string name="tv_progress_bar_game">Правильных ответов %s (минимум %s)</string>
+    <string name="bt_again">Попробовать снова</string>
+    <string name="tv_result_needed_answers">Необходимое количество правильных ответов: %s</string>
+    <string name="tv_result_counted_answers">Ваше количество правильных ответов: %s</string>
+    <string name="tv_result_needed_percent">Необходимый процент правильных ответов: %s</string>
+    <string name="tv_result_counted_percent">Ваш процент правильных ответов: %s</string>
 </resources>
