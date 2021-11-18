@@ -5,4 +5,6 @@
     android:id="@+id/main_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.activity.MainActivity"/>
+    android:name="com.coolightman.composition.presentation.fragment.WelcomeFragment"
+    tools:context=".presentation.activity.MainActivity"
+    tools:layout="@layout/fragment_welcome" />
