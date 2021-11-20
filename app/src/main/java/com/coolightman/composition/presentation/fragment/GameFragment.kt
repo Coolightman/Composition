@@ -25,7 +25,7 @@ class GameFragment : Fragment() {
         fun newInstance(level: Level): GameFragment {
             return GameFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(ARG_LEVEL, level)
+                    putParcelable(ARG_LEVEL, level)
                 }
             }
         }
@@ -81,12 +81,14 @@ class GameFragment : Fragment() {
     private fun launchResultFragment(result: GameResult) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, ResultFragment.newInstance(result))
-            .addToBackStack(null)
+            .addToBackStack(ResultFragment.NAME)
             .commit()
     }
 
     private fun parseArgs() {
-        level = requireArguments().getSerializable(ARG_LEVEL) as Level
+        requireArguments().getParcelable<Level>(ARG_LEVEL)?.let {
+            level = it
+        }
     }
 
     override fun onDestroyView() {

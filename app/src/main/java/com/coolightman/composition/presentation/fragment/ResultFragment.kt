@@ -18,12 +18,13 @@ class ResultFragment : Fragment() {
     private lateinit var gameResult: GameResult
 
     companion object {
+        const val NAME = "ResultFragment"
         private const val ARG_RESULT = "result"
 
         fun newInstance(result: GameResult): ResultFragment {
             return ResultFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(ARG_RESULT, result)
+                    putParcelable(ARG_RESULT, result)
                 }
             }
         }
@@ -35,7 +36,9 @@ class ResultFragment : Fragment() {
     }
 
     private fun parseArgs() {
-        gameResult = requireArguments().getSerializable(ARG_RESULT) as GameResult
+        requireArguments().getParcelable<GameResult>(ARG_RESULT)?.let {
+            gameResult = it
+        }
     }
 
     override fun onCreateView(

@@ -13,6 +13,10 @@ class WelcomeFragment : Fragment() {
     private var _binding: FragmentWelcomeBinding? = null
     private val binding get() = _binding!!
 
+    companion object {
+        const val NAME = "WelcomeFragment"
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,7 +33,7 @@ class WelcomeFragment : Fragment() {
         }
     }
 
-    private fun launchChooseLevelFragment(){
+    private fun launchChooseLevelFragment() {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, ChooseLevelFragment.newInstance())
             .addToBackStack(ChooseLevelFragment.NAME)
