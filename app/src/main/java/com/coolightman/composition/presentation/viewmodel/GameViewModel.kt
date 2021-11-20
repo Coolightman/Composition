@@ -28,6 +28,12 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     private var countOfRightAnswers = 0
     private var countOfQuestions = 0
 
+    companion object {
+        private const val MILLIS_IN_SECONDS = 1000L
+        private const val SECONDS_IN_MINUTE = 60
+        private const val PERCENTS = 100
+    }
+
     private val _formattedTime = MutableLiveData<String>()
     val formattedTime: LiveData<String>
         get() = _formattedTime
@@ -60,13 +66,18 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     val gameResult: LiveData<GameResult>
         get() = _gameResult
 
+    private val _toast = MutableLiveData<String>()
+    val toast: LiveData<String>
+        get() = _toast
+
     fun startGame(level: Level) {
         getGameSettings(level)
         startTimer()
         generateQuestion()
+        updateProgress()
     }
 
-    private fun chooseAnswer(number: Int) {
+    fun chooseAnswer(number: Int) {
         checkAnswer(number)
         updateProgress()
         generateQuestion()
@@ -93,13 +104,18 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun calculatePercentOfRightAnswers(): Int {
-        return (countOfRightAnswers.toDouble() / countOfQuestions).toInt() * PERCENTS
+        val result = countOfRightAnswers / countOfQuestions.toDouble()
+        val percent = result * PERCENTS
+        return percent.toInt()
     }
 
     private fun checkAnswer(number: Int) {
         val rightAnswer = question.value?.rightAnswer
         if (number == rightAnswer) {
             countOfRightAnswers++
+            _toast.value = context.getString(R.string.toast_right)
+        } else {
+            _toast.value = context.getString(R.string.toast_wrong)
         }
         countOfQuestions++
     }
@@ -134,7 +150,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         val seconds = millisUntilFinished / MILLIS_IN_SECONDS
         val minutes = seconds / SECONDS_IN_MINUTE
         val leftSeconds = seconds - (minutes * SECONDS_IN_MINUTE)
-        return String.format("%02d:%02D", minutes, leftSeconds)
+        return String.format("%02d:%02d", minutes, leftSeconds)
     }
 
     private fun finishGame() {
@@ -151,11 +167,4 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         super.onCleared()
         timer.cancel()
     }
-
-    companion object {
-        private const val MILLIS_IN_SECONDS = 1000L
-        private const val SECONDS_IN_MINUTE = 60
-        private const val PERCENTS = 100
-    }
-
 }

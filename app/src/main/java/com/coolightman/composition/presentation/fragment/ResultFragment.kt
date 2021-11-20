@@ -20,6 +20,7 @@ class ResultFragment : Fragment() {
     companion object {
         const val NAME = "ResultFragment"
         private const val ARG_RESULT = "result"
+        private const val PERCENTS = 100
 
         fun newInstance(result: GameResult): ResultFragment {
             return ResultFragment().apply {
@@ -84,14 +85,23 @@ class ResultFragment : Fragment() {
         val questions = gameResult.countOfQuestions
         val minRightAnswers = settings.minCountOfRightAnswers
         val minRightPercent = settings.minPercentOfRightAnswers
-        val percent = rightAnswers / questions
+        val percent = ((rightAnswers / questions.toDouble()) * PERCENTS).toInt()
+
+        val countedAnswersText =
+            String.format(resources.getString(R.string.tv_result_counted_answers), rightAnswers)
+        val countedPercentText =
+            String.format(resources.getString(R.string.tv_result_counted_percent), percent)
+        val neededAnswersText =
+            String.format(resources.getString(R.string.tv_result_needed_answers), minRightAnswers)
+        val neededPercentText =
+            String.format(resources.getString(R.string.tv_result_needed_percent), minRightPercent)
 
         setEmoji(winner)
         with(binding) {
-            tvResultCountedAnswers.text = rightAnswers.toString()
-            tvResultCountedPercent.text = percent.toString()
-            tvResultNeededAnswers.text = minRightAnswers.toString()
-            tvResultNeededPercent.text = minRightPercent.toString()
+            tvResultCountedAnswers.text = countedAnswersText
+            tvResultCountedPercent.text = countedPercentText
+            tvResultNeededAnswers.text = neededAnswersText
+            tvResultNeededPercent.text = neededPercentText
         }
     }
 

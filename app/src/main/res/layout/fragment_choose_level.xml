@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@android:color/holo_green_light"
+        android:backgroundTint="@color/green"
         android:text="@string/bt_level_easy" />
 
     <com.google.android.material.button.MaterialButton
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@android:color/holo_orange_light"
+        android:backgroundTint="@color/orange"
         android:text="@string/bt_level_normal" />
 
     <com.google.android.material.button.MaterialButton
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@android:color/holo_red_light"
+        android:backgroundTint="@color/red"
         android:text="@string/bt_level_hard" />
 
 </LinearLayout>

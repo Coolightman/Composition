@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_baseline_circle_24"
-        android:backgroundTint="#43A047"
+        android:backgroundTint="@color/green"
         android:gravity="center"
         android:textSize="40sp"
         android:textStyle="bold"
@@ -41,7 +41,7 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_game_visible_number"
         style="@style/tv_game_number"
-        android:background="@android:color/holo_orange_light"
+        android:background="@color/orange"
         app:layout_constraintEnd_toStartOf="@+id/tv_game_unknown_number"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -52,33 +52,33 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_game_unknown_number"
         style="@style/tv_game_number"
-        android:background="@android:color/holo_red_light"
+        android:background="@color/red"
+        android:text="@string/tv_game_unknown_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_game_visible_number"
-        app:layout_constraintTop_toBottomOf="@id/tv_game_sum"
-        tools:text="\?" />
+        app:layout_constraintTop_toBottomOf="@id/tv_game_sum"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_progress_bar_game"
+        android:id="@+id/tv_progress_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="8dp"
         android:text="@string/tv_progress_bar_game"
-        app:layout_constraintBottom_toTopOf="@id/progress_bar_game"
+        app:layout_constraintBottom_toTopOf="@id/progress_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progress_bar_game"
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="20dp"
-        android:max="100"
         app:layout_constraintBottom_toTopOf="@+id/tv_game_option_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -132,6 +132,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_game_option_5"
         tools:text="6" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
