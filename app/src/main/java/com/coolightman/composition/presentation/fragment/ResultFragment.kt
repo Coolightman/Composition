@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.coolightman.composition.R
 import com.coolightman.composition.databinding.FragmentResultBinding
@@ -85,16 +86,16 @@ class ResultFragment : Fragment() {
         val questions = gameResult.countOfQuestions
         val minRightAnswers = settings.minCountOfRightAnswers
         val minRightPercent = settings.minPercentOfRightAnswers
-        val percent = ((rightAnswers / questions.toDouble()) * PERCENTS).toInt()
+        val rightAnswersPercent = ((rightAnswers / questions.toDouble()) * PERCENTS).toInt()
 
         val countedAnswersText =
-            String.format(resources.getString(R.string.tv_result_counted_answers), rightAnswers)
+            String.format(getString(R.string.tv_result_counted_answers), rightAnswers)
         val countedPercentText =
-            String.format(resources.getString(R.string.tv_result_counted_percent), percent)
+            String.format(getString(R.string.tv_result_counted_percent), rightAnswersPercent)
         val neededAnswersText =
-            String.format(resources.getString(R.string.tv_result_needed_answers), minRightAnswers)
+            String.format(getString(R.string.tv_result_needed_answers), minRightAnswers)
         val neededPercentText =
-            String.format(resources.getString(R.string.tv_result_needed_percent), minRightPercent)
+            String.format(getString(R.string.tv_result_needed_percent), minRightPercent)
 
         setEmoji(winner)
         with(binding) {
@@ -102,7 +103,25 @@ class ResultFragment : Fragment() {
             tvResultCountedPercent.text = countedPercentText
             tvResultNeededAnswers.text = neededAnswersText
             tvResultNeededPercent.text = neededPercentText
+
+            if (rightAnswers >= minRightAnswers) {
+                tvResultCountedAnswers.setTextColor(chooseColor(true))
+            } else{
+                tvResultCountedAnswers.setTextColor(chooseColor(false))
+            }
+
+            if (rightAnswersPercent>= minRightPercent){
+                tvResultCountedPercent.setTextColor(chooseColor(true))
+            } else{
+                tvResultCountedPercent.setTextColor(chooseColor(false))
+            }
         }
+    }
+
+    private fun chooseColor(goodState: Boolean): Int {
+        val colorId = if (goodState) R.color.green
+        else R.color.red
+        return ContextCompat.getColor(requireContext(), colorId)
     }
 
     private fun setEmoji(winner: Boolean) {
