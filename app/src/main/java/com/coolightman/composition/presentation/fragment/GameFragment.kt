@@ -28,7 +28,7 @@ class GameFragment : Fragment() {
         ViewModelProvider(
             this,
             AndroidViewModelFactory.getInstance(requireActivity().application)
-        )[GameViewModel::class.java]
+        ).get(GameViewModel::class.java)
     }
     private lateinit var level: Level
     private lateinit var options: List<Int>
