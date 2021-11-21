@@ -2,9 +2,9 @@ package com.coolightman.composition.presentation.viewmodel
 
 import android.app.Application
 import android.os.CountDownTimer
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.coolightman.composition.R
 import com.coolightman.composition.data.GameRepositoryImpl
 import com.coolightman.composition.domain.entity.GameResult
@@ -14,13 +14,14 @@ import com.coolightman.composition.domain.entity.Question
 import com.coolightman.composition.domain.usecase.GenerateQuestionUseCase
 import com.coolightman.composition.domain.usecase.GetGameSettingsUseCase
 
-class GameViewModel(application: Application) : AndroidViewModel(application) {
+class GameViewModel(
+    private val application: Application,
+    private val level: Level
+) : ViewModel() {
 
     private lateinit var gameSettings: GameSettings
-    private lateinit var level: Level
     private lateinit var timer: CountDownTimer
 
-    private val context = application
     private val repository = GameRepositoryImpl
     private val generateQuestionUseCase = GenerateQuestionUseCase(repository)
     private val getGameSettingsUseCase = GetGameSettingsUseCase(repository)
@@ -70,8 +71,12 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     val toast: LiveData<String>
         get() = _toast
 
-    fun startGame(level: Level) {
-        getGameSettings(level)
+    init {
+        startGame()
+    }
+
+    private fun startGame() {
+        getGameSettings()
         startTimer()
         generateQuestion()
         updateProgress()
@@ -86,7 +91,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     private fun updateProgress() {
         val percent = calculatePercentOfRightAnswers()
         _percentOfRightAnswers.value = percent
-        val baseProgressString = context.resources.getString(R.string.tv_progress_bar_game)
+        val baseProgressString = application.resources.getString(R.string.tv_progress_bar_game)
 
         _progressAnswers.value =
             String.format(
@@ -113,15 +118,14 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         val rightAnswer = question.value?.rightAnswer
         if (number == rightAnswer) {
             countOfRightAnswers++
-            _toast.value = context.getString(R.string.toast_right)
+            _toast.value = application.getString(R.string.toast_right)
         } else {
-            _toast.value = context.getString(R.string.toast_wrong)
+            _toast.value = application.getString(R.string.toast_wrong)
         }
         countOfQuestions++
     }
 
-    private fun getGameSettings(level: Level) {
-        this.level = level
+    private fun getGameSettings() {
         this.gameSettings = getGameSettingsUseCase(level)
         _minPercent.value = gameSettings.minPercentOfRightAnswers
     }

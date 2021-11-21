@@ -18,6 +18,7 @@ import com.coolightman.composition.databinding.FragmentGameBinding
 import com.coolightman.composition.domain.entity.GameResult
 import com.coolightman.composition.domain.entity.Level
 import com.coolightman.composition.presentation.viewmodel.GameViewModel
+import com.coolightman.composition.presentation.viewmodel.GameViewModelFactory
 
 class GameFragment : Fragment() {
 
@@ -25,13 +26,13 @@ class GameFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: GameViewModel by lazy {
-        ViewModelProvider(
-            this,
-            AndroidViewModelFactory.getInstance(requireActivity().application)
-        ).get(GameViewModel::class.java)
+        ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
     }
-    private lateinit var level: Level
-    private lateinit var options: List<Int>
+
+    private val viewModelFactory by lazy {
+        GameViewModelFactory(requireActivity().application, level)
+    }
+
     private val tvOptions by lazy {
         mutableListOf<TextView>().apply {
             with(binding) {
@@ -44,6 +45,9 @@ class GameFragment : Fragment() {
             }
         }
     }
+
+    private lateinit var level: Level
+    private lateinit var options: List<Int>
 
     companion object {
         const val NAME = "GameFragment"
@@ -75,7 +79,6 @@ class GameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observers()
         optionsListener()
-        viewModel.startGame(level)
     }
 
     private fun observers() {
