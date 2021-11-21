@@ -12,13 +12,12 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.coolightman.composition.R
 import com.coolightman.composition.databinding.FragmentGameBinding
 import com.coolightman.composition.domain.entity.GameResult
 import com.coolightman.composition.domain.entity.Level
-import com.coolightman.composition.presentation.fragment.ResultFragment.Companion.ARG_RESULT
 import com.coolightman.composition.presentation.viewmodel.GameViewModel
 import com.coolightman.composition.presentation.viewmodel.GameViewModelFactory
 
@@ -26,6 +25,8 @@ class GameFragment : Fragment() {
 
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
+
+    private val args by navArgs<GameFragmentArgs>()
 
     private val viewModel: GameViewModel by lazy {
         ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
@@ -51,14 +52,9 @@ class GameFragment : Fragment() {
     private lateinit var level: Level
     private lateinit var options: List<Int>
 
-    companion object {
-        const val NAME = "GameFragment"
-        const val ARG_LEVEL = "level"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        parseArgs()
+        this.level = args.level
     }
 
     override fun onCreateView(
@@ -153,16 +149,9 @@ class GameFragment : Fragment() {
     }
 
     private fun launchResultFragment(result: GameResult) {
-        val arguments = Bundle().apply {
-            putParcelable(ARG_RESULT, result)
-        }
-        findNavController().navigate(R.id.action_gameFragment_to_resultFragment, arguments)
-    }
-
-    private fun parseArgs() {
-        requireArguments().getParcelable<Level>(ARG_LEVEL)?.let {
-            level = it
-        }
+        findNavController().navigate(
+            GameFragmentDirections.actionGameFragmentToResultFragment(result)
+        )
     }
 
     override fun onDestroyView() {

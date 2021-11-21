@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.coolightman.composition.R
 import com.coolightman.composition.databinding.FragmentResultBinding
 import com.coolightman.composition.domain.entity.GameResult
@@ -19,21 +19,15 @@ class ResultFragment : Fragment() {
 
     private lateinit var gameResult: GameResult
 
+    private val args by navArgs<ResultFragmentArgs>()
+
     companion object {
-        const val NAME = "ResultFragment"
-        const val ARG_RESULT = "result"
         private const val PERCENTS = 100
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        parseArgs()
-    }
-
-    private fun parseArgs() {
-        requireArguments().getParcelable<GameResult>(ARG_RESULT)?.let {
-            gameResult = it
-        }
+        this.gameResult = args.gameResult
     }
 
     override fun onCreateView(
@@ -89,13 +83,13 @@ class ResultFragment : Fragment() {
 
             if (rightAnswers >= minRightAnswers) {
                 tvResultCountedAnswers.setTextColor(chooseColor(true))
-            } else{
+            } else {
                 tvResultCountedAnswers.setTextColor(chooseColor(false))
             }
 
-            if (rightAnswersPercent>= minRightPercent){
+            if (rightAnswersPercent >= minRightPercent) {
                 tvResultCountedPercent.setTextColor(chooseColor(true))
-            } else{
+            } else {
                 tvResultCountedPercent.setTextColor(chooseColor(false))
             }
         }
