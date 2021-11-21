@@ -13,10 +13,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
+import androidx.navigation.fragment.findNavController
 import com.coolightman.composition.R
 import com.coolightman.composition.databinding.FragmentGameBinding
 import com.coolightman.composition.domain.entity.GameResult
 import com.coolightman.composition.domain.entity.Level
+import com.coolightman.composition.presentation.fragment.ResultFragment.Companion.ARG_RESULT
 import com.coolightman.composition.presentation.viewmodel.GameViewModel
 import com.coolightman.composition.presentation.viewmodel.GameViewModelFactory
 
@@ -51,15 +53,7 @@ class GameFragment : Fragment() {
 
     companion object {
         const val NAME = "GameFragment"
-        private const val ARG_LEVEL = "level"
-
-        fun newInstance(level: Level): GameFragment {
-            return GameFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(ARG_LEVEL, level)
-                }
-            }
-        }
+        const val ARG_LEVEL = "level"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -159,10 +153,10 @@ class GameFragment : Fragment() {
     }
 
     private fun launchResultFragment(result: GameResult) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, ResultFragment.newInstance(result))
-            .addToBackStack(ResultFragment.NAME)
-            .commit()
+        val arguments = Bundle().apply {
+            putParcelable(ARG_RESULT, result)
+        }
+        findNavController().navigate(R.id.action_gameFragment_to_resultFragment, arguments)
     }
 
     private fun parseArgs() {

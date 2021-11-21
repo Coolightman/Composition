@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.coolightman.composition.R
 import com.coolightman.composition.databinding.FragmentResultBinding
 import com.coolightman.composition.domain.entity.GameResult
@@ -20,16 +21,8 @@ class ResultFragment : Fragment() {
 
     companion object {
         const val NAME = "ResultFragment"
-        private const val ARG_RESULT = "result"
+        const val ARG_RESULT = "result"
         private const val PERCENTS = 100
-
-        fun newInstance(result: GameResult): ResultFragment {
-            return ResultFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(ARG_RESULT, result)
-                }
-            }
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,16 +48,6 @@ class ResultFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setViewValues()
         listeners()
-        setOnBackPressed()
-    }
-
-    private fun setOnBackPressed() {
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                retryGame()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
     private fun listeners() {
@@ -76,7 +59,7 @@ class ResultFragment : Fragment() {
     }
 
     private fun retryGame() {
-        requireActivity().supportFragmentManager.popBackStack(GameFragment.NAME, 1)
+        findNavController().popBackStack()
     }
 
     private fun setViewValues() {
