@@ -13,11 +13,12 @@
     <string name="bt_level_test">Тестовый</string>
     <string name="tv_progress_bar_game">Правильных ответов %s (минимум %s)</string>
     <string name="bt_again">Попробовать снова</string>
-    <string name="tv_result_needed_answers">Необходимо правильных ответов: %s</string>
-    <string name="tv_result_counted_answers">Количество правильных ответов: %s</string>
+    <string name="tv_result_needed_answers">Необходимо: %s</string>
+    <string name="tv_result_counted_answers">Правильных ответов: %s</string>
     <string name="tv_result_needed_percent">Необходимый процент: %s</string>
     <string name="tv_result_counted_percent">Процент правильных ответов: %s</string>
     <string name="tv_game_unknown_number">\?</string>
     <string name="toast_right">Right!</string>
     <string name="toast_wrong">Wrong!</string>
+    <string name="tv_progress_bar_subscribe">Процент правильных ответов</string>
 </resources>
